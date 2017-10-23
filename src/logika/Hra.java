@@ -49,7 +49,9 @@ public class Hra implements IHra {
                "Sultán tě pověřuje úkolem zabít Vezíra a najít princeznu.\n" + 
                "Dokážeš to?\n\n" + 
                "Napiš 'nápověda', pro vypsání příkazů.\n" +
-               herniPlan.getAktualniProstor().dlouhyPopis();
+               herniPlan.getAktualniProstor().dlouhyPopis()
+                + "********************************************" 
+                + "***********************";
     }
     
     /**

@@ -35,11 +35,11 @@ class PrikazSkoc implements IPrikaz{
                 plan.setAktualniProstor(prostorPoSkoku);
                 return plan.getAktualniProstor().dlouhyPopis();
             } else {
-                return "\nSkočil jsi.\n";
+                return "Skočil jsi.\n";
             }
         }
         if(parametry.length >= 1){
-            return "\nTento příkaz nepotřebuje další parametry\n";
+            return "\nTento příkaz nepotřebuje další parametry";
         } else {
             return "";
         }

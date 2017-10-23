@@ -40,18 +40,18 @@ public class PrikazSeber implements IPrikaz
         if (aktualniProstor.jeVecVProstoru(nazevSbiraneVeci)) {
             Vec odebiranaVec = aktualniProstor.vyberVec(nazevSbiraneVeci);
             if(!odebiranaVec.jePrenositelna()){
-                return "\nTohle nemůžeš sebrat\n";
+                return "Tohle nemůžeš sebrat";
             }
             if(odebiranaVec.jePrenositelna() && inventar.vlozVec(odebiranaVec)){
-                return "\nSebral jsi " + odebiranaVec.getNazev() + ", jež se teď nachází v inventáři\n";
+                return "Sebral jsi " + odebiranaVec.getNazev() + ", jež se teď nachází v inventáři";
             }
             else{
                 aktualniProstor.vlozVec(odebiranaVec);
-                return "\nTvůj inventář je plný\n";
+                return "Tvůj inventář je plný";
             }
         }
         else {
-            return "\nTaková věc tu není.\n";
+            return "Taková věc tu není.";
         }
     }
     

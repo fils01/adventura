@@ -135,7 +135,7 @@ public class Prostor {
     }
     
     public String popisVeci() {
-        String vracenyText = "\nNachází se zde:  ";
+        String vracenyText = "Nachází se zde:  ";
         for (String nazev : veciVProstoru.keySet()) {
             vracenyText += nazev + ", ";
         }
