@@ -42,14 +42,13 @@ public class Hra implements IHra {
      *  Vrátí úvodní zprávu pro hráče.
      */
     public String vratUvitani() {
-        return "\n\n\n" +
+        return "\n" +
                "Jsi v horké Persii. Sultán podniká velké válečné tažení,\n" + 
                "jeho nepřítomnosti však využije zlý Vezír\n" + 
                "a unese a zamkne jeho dceru ve svém paláci. \n" + 
                "Sultán tě pověřuje úkolem zabít Vezíra a najít princeznu.\n" + 
                "Dokážeš to?\n\n" + 
                "Napiš 'nápověda', pro vypsání příkazů.\n" +
-               "\n" +
                herniPlan.getAktualniProstor().dlouhyPopis();
     }
     
