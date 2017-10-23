@@ -85,7 +85,7 @@ public class Hra implements IHra {
         String textKVypsani=" .... ";
         if (platnePrikazy.jePlatnyPrikaz(slovoPrikazu)) {
             IPrikaz prikaz = platnePrikazy.vratPrikaz(slovoPrikazu);
-            textKVypsani = prikaz.provedPrikaz(parametry) + "\n********************************************"
+            textKVypsani = prikaz.provedPrikaz(parametry) + "********************************************"
             + "***********************";
         }
         else {
