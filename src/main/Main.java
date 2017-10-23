@@ -42,7 +42,6 @@ public class Main extends Application {
         BorderPane borderPane = new BorderPane();
         
         
-        
         centralText = new TextArea();
         centralText.setFont(Font.font("Avenir Next", FontWeight.BOLD, 14));
         centralText.setText(hra.vratUvitani());
@@ -88,8 +87,6 @@ public class Main extends Application {
         primaryStage.setTitle("Adventura");
         primaryStage.setScene(scene);
         primaryStage.show();
-        
-        
     }
 
     /**
