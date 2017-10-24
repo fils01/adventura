@@ -32,13 +32,13 @@ public class HerniPlan {
      */
     private void zalozProstoryHry() {
         // vytvářejí se jednotlivé prostory
-        Prostor uvodniMistnost = new Prostor("úvodní_místnost","malá chodba na začátku paláce");
-        Prostor hlavniSal = new Prostor("hlavní_sál","velký sál, který ti nabízí čtyři možné cesty dál");
-        Prostor vezeniPrincezny = new Prostor("vězení_princezny","y");
+        Prostor uvodniMistnost = new Prostor("úvodní_místnost","malá chodba na začátku paláce", 110, 50);
+        Prostor hlavniSal = new Prostor("hlavní_sál","velký sál, který ti nabízí čtyři možné cesty dál", 20,50);
+        Prostor vezeniPrincezny = new Prostor("vězení_princezny","y", 40, 78);
         Prostor zbrojnice = new Prostor("zbrojnice","vyklizená zbrojnice, většinu věcí si vzal"
-        + " Sultán na své válečné tažení");
+        + " Sultán na své válečné tažení", 80, 80);
         Prostor mucirna = new Prostor("mučírna","deprimující mučírna, kde byli pro informace" 
-        + " i potěšení trápeni mnozí lidé");
+        + " i potěšení trápeni mnozí lidé", 1, 1);
         Prostor rozbiteSchodiste = new Prostor("rozbité_schodiště","staré rozpalé schodiště, které kdysi"
         + " vedlo nahoru do místnosti ohňů");
         Prostor chodbaTriZkousek = new Prostor("chodba_tří_zkoušek", "táhlá chodba, rozdělená na tři"
