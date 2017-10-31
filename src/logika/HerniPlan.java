@@ -1,5 +1,10 @@
 package logika;
 
+import java.util.ArrayList;
+import java.util.List;
+import utils.Observer;
+import utils.Subject;
+
 
 /**
  *  Class HerniPlan - třída představující mapu a stav adventury.
@@ -12,12 +17,14 @@ package logika;
  *@author     Michael Kolling, Lubos Pavlicek, Jarmila Pavlickova
  *@version    pro školní rok 2016/2017
  */
-public class HerniPlan {
+public class HerniPlan implements Subject{
     
     private Prostor aktualniProstor;
     private Prostor viteznyProstor;
     private boolean vyhra = false;
     private boolean prohra = false;
+    
+    private List<Observer> listObserveru = new ArrayList<Observer>();
      /**
      *  Konstruktor který vytváří jednotlivé prostory a propojuje je pomocí východů.
      *  Jako výchozí aktuální prostor nastaví halu.
@@ -32,30 +39,30 @@ public class HerniPlan {
      */
     private void zalozProstoryHry() {
         // vytvářejí se jednotlivé prostory
-        Prostor uvodniMistnost = new Prostor("úvodní_místnost","malá chodba na začátku paláce", 110, 50);
-        Prostor hlavniSal = new Prostor("hlavní_sál","velký sál, který ti nabízí čtyři možné cesty dál", 20,50);
-        Prostor vezeniPrincezny = new Prostor("vězení_princezny","y", 40, 78);
+        Prostor uvodniMistnost = new Prostor("úvodní_místnost","malá chodba na začátku paláce", 10, 10);
+        Prostor hlavniSal = new Prostor("hlavní_sál","velký sál, který ti nabízí čtyři možné cesty dál", 20, 20);
+        Prostor vezeniPrincezny = new Prostor("vězení_princezny","y", 30, 30);
         Prostor zbrojnice = new Prostor("zbrojnice","vyklizená zbrojnice, většinu věcí si vzal"
-        + " Sultán na své válečné tažení", 80, 80);
+        + " Sultán na své válečné tažení", 40, 40);
         Prostor mucirna = new Prostor("mučírna","deprimující mučírna, kde byli pro informace" 
-        + " i potěšení trápeni mnozí lidé", 1, 1);
+        + " i potěšení trápeni mnozí lidé", 50, 50);
         Prostor rozbiteSchodiste = new Prostor("rozbité_schodiště","staré rozpalé schodiště, které kdysi"
-        + " vedlo nahoru do místnosti ohňů");
+        + " vedlo nahoru do místnosti ohňů", 60, 60);
         Prostor chodbaTriZkousek = new Prostor("chodba_tří_zkoušek", "táhlá chodba, rozdělená na tři"
-        + " části, které mají různé barvy stěn");
+        + " části, které mají různé barvy stěn", 70, 70);
         Prostor prvniZkouska = new Prostor("první_zkouška","zhruba třímetrová část, "
         + "\nkde ze země před tebou vyskakují ostré "
-        + "\nmetrové hroty. To jen tak neprojdeš.");
+        + "\nmetrové hroty. To jen tak neprojdeš.", 80, 80);
         Prostor druhaZkouska = new Prostor("druhá_zkouška","další třímetrová část, bohužel v cestě dál "
         + "\nti brání zamčené dveře, na kterých je zámek s číslicemi 1-9, "
-        + "\nu každé číslice je malá páčka, kterou se zřejmě volí vstupní číslo");
-        Prostor tretiZkouska = new Prostor("třetí_zkouška","bráněna pěšákem, který vypadá velmi nepřátelsky");
-        Prostor tajnaSkrys = new Prostor("tajná_skrýš","tajná místnost, která byla používána jako úkryt");
-        Prostor most = new Prostor("most", "rozpadlý most přes propast. To jen tak nepřeskočíš");
+        + "\nu každé číslice je malá páčka, kterou se zřejmě volí vstupní číslo", 90, 90);
+        Prostor tretiZkouska = new Prostor("třetí_zkouška","bráněna pěšákem, který vypadá velmi nepřátelsky", 100, 100);
+        Prostor tajnaSkrys = new Prostor("tajná_skrýš","tajná místnost, která byla používána jako úkryt", 110, 110);
+        Prostor most = new Prostor("most", "rozpadlý most přes propast. To jen tak nepřeskočíš", 120, 120);
         Prostor vez = new Prostor("věž", "první poschodí věže, kde je uvězněná princezna, bohužel ti "
-        + "v cestě dál brání zlý Vezír!");
+        + "v cestě dál brání zlý Vezír!", 130, 130);
         Prostor komnataPrincezny = new Prostor("komnata_princezny", "cela na vrcholu věže, kde je zamčená" 
-        + " princezna");
+        + " princezna", 140, 140);
         
         
         
@@ -137,6 +144,7 @@ public class HerniPlan {
      */
     public void setAktualniProstor(Prostor prostor) {
        aktualniProstor = prostor;
+       notifyObservers();
     }
     
     public boolean jeVyhra(){
@@ -153,5 +161,22 @@ public class HerniPlan {
     
     public void setProhra(boolean stav){
         this.prohra = stav;
+    }
+
+    @Override
+    public void registerObserver(Observer observer) {
+        listObserveru.add(observer);
+    }
+
+    @Override
+    public void removeObserver(Observer observer) {
+        listObserveru.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (Observer listObserveruItem : listObserveru) {
+            listObserveruItem.update();
+        }
     }
 }

@@ -5,6 +5,7 @@
  */
 package main;
 
+import GUI.Mapa;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -16,9 +17,12 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -36,9 +40,12 @@ public class Main extends Application {
     private IHra hra;
     private TextField zadejPrikazTextField;
     
+    private Mapa mapa;
+    
     @Override
     public void start(Stage primaryStage) {
         hra = new Hra();
+        mapa = new Mapa(hra);
         BorderPane borderPane = new BorderPane();
         
         
@@ -70,17 +77,12 @@ public class Main extends Application {
             }
         });
         
-        FlowPane obrazekFlowPane = new FlowPane();
-        ImageView obrazekImageView = new ImageView(new Image(Main.class.getResourceAsStream("/zdroje/mapa.png"),230,230,false,true));
-        obrazekFlowPane.setMaxWidth(230);
-        obrazekFlowPane.setAlignment(Pos.CENTER);
-        obrazekFlowPane.getChildren().add(obrazekImageView);
         
         FlowPane dolniLista = new FlowPane();
         dolniLista.setAlignment(Pos.BOTTOM_RIGHT);
         dolniLista.getChildren().addAll(zadejPrikazLabel,zadejPrikazTextField);
         
-        borderPane.setLeft(obrazekFlowPane);
+        borderPane.setLeft(mapa);
         borderPane.setBottom(dolniLista);
         Scene scene = new Scene(borderPane, 900, 450);
         
@@ -88,7 +90,7 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-
+    
     /**
      * @param args the command line arguments
      */
