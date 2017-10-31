@@ -6,6 +6,7 @@
 package main;
 
 import GUI.Mapa;
+import GUI.MenuLista;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -41,19 +42,21 @@ public class Main extends Application {
     private TextField zadejPrikazTextField;
     
     private Mapa mapa;
+    private MenuLista menuLista;
     
     @Override
     public void start(Stage primaryStage) {
-        hra = new Hra();
+        setHra(new Hra());
         mapa = new Mapa(hra);
+        menuLista = new MenuLista(hra, this);
         BorderPane borderPane = new BorderPane();
         
         
         centralText = new TextArea();
-        centralText.setFont(Font.font("Avenir Next", FontWeight.BOLD, 14));
-        centralText.setText(hra.vratUvitani());
-        centralText.setEditable(false);
-        borderPane.setCenter(centralText);
+        getCentralText().setFont(Font.font("Avenir Next", FontWeight.BOLD, 14));
+        getCentralText().setText(hra.vratUvitani());
+        getCentralText().setEditable(false);
+        borderPane.setCenter(getCentralText());
         
         Label zadejPrikazLabel = new Label("Zadej příkaz: ");
         zadejPrikazLabel.setFont(Font.font("Avenir Next", FontWeight.BOLD, 16));
@@ -67,12 +70,12 @@ public class Main extends Application {
                 String vstupniPrikaz = zadejPrikazTextField.getText();
                 String odpovedHry = hra.zpracujPrikaz(vstupniPrikaz);
                 
-                centralText.appendText("\n" + vstupniPrikaz + "\n");
-                centralText.appendText("\n" + odpovedHry + "\n");
+                getCentralText().appendText("\n" + vstupniPrikaz + "\n");
+                getCentralText().appendText("\n" + odpovedHry + "\n");
 
                 if (hra.konecHry()){
                     zadejPrikazTextField.setEditable(false);
-                    centralText.appendText(hra.vratEpilog());
+                    getCentralText().appendText(hra.vratEpilog());
                 }
             }
         });
@@ -82,8 +85,9 @@ public class Main extends Application {
         dolniLista.setAlignment(Pos.BOTTOM_RIGHT);
         dolniLista.getChildren().addAll(zadejPrikazLabel,zadejPrikazTextField);
         
-        borderPane.setLeft(mapa);
+        borderPane.setLeft(getMapa());
         borderPane.setBottom(dolniLista);
+        borderPane.setTop(menuLista);
         Scene scene = new Scene(borderPane, 900, 450);
         
         primaryStage.setTitle("Adventura");
@@ -96,6 +100,27 @@ public class Main extends Application {
      */
     public static void main(String[] args) {
         launch(args);
+    }
+
+    /**
+     * @return the mapa
+     */
+    public Mapa getMapa() {
+        return mapa;
+    }
+
+    /**
+     * @return the centralText
+     */
+    public TextArea getCentralText() {
+        return centralText;
+    }
+
+    /**
+     * @param hra the hra to set
+     */
+    public void setHra(IHra hra) {
+        this.hra = hra;
     }
     
 }
