@@ -44,8 +44,11 @@ public class Main extends Application {
     private Mapa mapa;
     private MenuLista menuLista;
     
+    private Stage stage;
+    
     @Override
     public void start(Stage primaryStage) {
+        this.setStage(primaryStage);
         setHra(new Hra());
         mapa = new Mapa(hra);
         menuLista = new MenuLista(hra, this);
@@ -72,6 +75,8 @@ public class Main extends Application {
                 
                 getCentralText().appendText("\n" + vstupniPrikaz + "\n");
                 getCentralText().appendText("\n" + odpovedHry + "\n");
+                
+                zadejPrikazTextField.clear();
 
                 if (hra.konecHry()){
                     zadejPrikazTextField.setEditable(false);
@@ -88,7 +93,7 @@ public class Main extends Application {
         borderPane.setLeft(getMapa());
         borderPane.setBottom(dolniLista);
         borderPane.setTop(menuLista);
-        Scene scene = new Scene(borderPane, 900, 450);
+        Scene scene = new Scene(borderPane, 900, 500);
         
         primaryStage.setTitle("Adventura");
         primaryStage.setScene(scene);
@@ -121,6 +126,20 @@ public class Main extends Application {
      */
     public void setHra(IHra hra) {
         this.hra = hra;
+    }
+
+    /**
+     * @return the stage
+     */
+    public Stage getStage() {
+        return stage;
+    }
+
+    /**
+     * @param stage the stage to set
+     */
+    public void setStage(Stage stage) {
+        this.stage = stage;
     }
     
 }
