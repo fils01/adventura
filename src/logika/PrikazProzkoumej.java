@@ -38,13 +38,13 @@ class PrikazProzkoumej implements IPrikaz{
         Prostor aktualniProstor = plan.getAktualniProstor();
         
         if(nazevZkoumaneVeci.equals("inventář")){ //když je parametr inventář tak je vypsán
-            return inventar.nazvyVeci();
+            return inventar.nazvyVeci() + "\n";
         }
         
         if(aktualniProstor.jeVecVProstoru(nazevZkoumaneVeci)){//když je věc v prostoru tak je vrácen popis
-            return aktualniProstor.vyberVec(nazevZkoumaneVeci).getPopisVeci();
+            return aktualniProstor.vyberVec(nazevZkoumaneVeci).getPopisVeci() + "\n";
         } else {
-            return "Taková věc tu není.";
+            return "Taková věc tu není." + "\n";
         }
     }
     

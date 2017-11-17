@@ -129,6 +129,7 @@ public class Hra implements IHra {
      *  
      *  @return     odkaz na herní plán
      */
+    @Override
      public HerniPlan getHerniPlan(){
         return herniPlan;
      }

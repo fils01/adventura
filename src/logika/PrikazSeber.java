@@ -30,7 +30,7 @@ public class PrikazSeber implements IPrikaz
     @Override
     public String provedPrikaz(String... parametry) {
         if (parametry.length == 0) {            
-            return "Co chceš sebrat?";
+            return "Co chceš sebrat?" + "\n";
         }
 
         String nazevSbiraneVeci = parametry[0];
@@ -40,18 +40,18 @@ public class PrikazSeber implements IPrikaz
         if (aktualniProstor.jeVecVProstoru(nazevSbiraneVeci)) {
             Vec odebiranaVec = aktualniProstor.vyberVec(nazevSbiraneVeci);
             if(!odebiranaVec.jePrenositelna()){
-                return "Tohle nemůžeš sebrat";
+                return "Tohle nemůžeš sebrat" + "\n";
             }
             if(odebiranaVec.jePrenositelna() && inventar.vlozVec(odebiranaVec)){
-                return "Sebral jsi " + odebiranaVec.getNazev() + ", jež se teď nachází v inventáři";
+                return "Sebral jsi " + odebiranaVec.getNazev() + ", jež se teď nachází v inventáři" + "\n";
             }
             else{
                 aktualniProstor.vlozVec(odebiranaVec);
-                return "Tvůj inventář je plný";
+                return "Tvůj inventář je plný" + "\n";
             }
         }
         else {
-            return "Taková věc tu není.";
+            return "Taková věc tu není." + "\n";
         }
     }
     

@@ -68,7 +68,7 @@ public class MenuLista extends MenuBar{
             @Override
             public void handle(ActionEvent event) {
                 hra = new Hra();
-                main.getMapa().newGame(hra);
+                main.getPanelMapa().newGame(hra);
                 main.setHra(hra);
                 main.getCentralText().setText(hra.vratUvitani());
             }
@@ -80,8 +80,8 @@ public class MenuLista extends MenuBar{
                 Alert oProgramuAlert = new Alert(Alert.AlertType.INFORMATION);
                 
                 oProgramuAlert.setTitle("O programu");
-                oProgramuAlert.setHeaderText("Adventura XYZ");
-                oProgramuAlert.setContentText("Kappa kappa kappa");
+                oProgramuAlert.setHeaderText("Adventura Perský Princ");
+                oProgramuAlert.setContentText("Svetoslav Filev, 2017");
                 oProgramuAlert.initOwner(main.getStage());
                 
                 oProgramuAlert.showAndWait();

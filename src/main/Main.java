@@ -5,8 +5,9 @@
  */
 package main;
 
-import GUI.Mapa;
+import GUI.PanelMapa;
 import GUI.MenuLista;
+import GUI.PanelVychod;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -28,6 +29,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import logika.HerniPlan;
 import logika.Hra;
 import logika.IHra;
 
@@ -39,10 +41,13 @@ public class Main extends Application {
     
     private TextArea centralText;
     private IHra hra;
+    private HerniPlan plan;
     private TextField zadejPrikazTextField;
     
-    private Mapa mapa;
+    private PanelVychod panelVychod;
+    private PanelMapa panelMapa;
     private MenuLista menuLista;
+    
     
     private Stage stage;
     
@@ -50,7 +55,9 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         this.setStage(primaryStage);
         setHra(new Hra());
-        mapa = new Mapa(hra);
+        
+        panelVychod = new PanelVychod(hra.getHerniPlan());
+        panelMapa = new PanelMapa(hra);
         menuLista = new MenuLista(hra, this);
         BorderPane borderPane = new BorderPane();
         
@@ -66,6 +73,7 @@ public class Main extends Application {
         
         zadejPrikazTextField = new TextField("");
         zadejPrikazTextField.setMinWidth(670);
+        zadejPrikazTextField.requestFocus();
         zadejPrikazTextField.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -85,15 +93,31 @@ public class Main extends Application {
             }
         });
         
+        ImageView blbost = new ImageView(new Image(
+                Main.class.getResourceAsStream("/zdroje/mapa2.png"),
+                200,450,true,true));
+        
         
         FlowPane dolniLista = new FlowPane();
-        dolniLista.setAlignment(Pos.BOTTOM_RIGHT);
+        dolniLista.setAlignment(Pos.CENTER);
         dolniLista.getChildren().addAll(zadejPrikazLabel,zadejPrikazTextField);
         
-        borderPane.setLeft(getMapa());
+        FlowPane pravaLista = new FlowPane();
+        pravaLista.setAlignment(Pos.TOP_CENTER);
+        pravaLista.setPrefWidth(200);
+        pravaLista.getChildren().add(getPanelVychod());
+        
+        FlowPane levaLista = new FlowPane();
+        levaLista.setAlignment(Pos.TOP_CENTER);
+        levaLista.setPrefWidth(200);
+        levaLista.getChildren().addAll(getPanelMapa());
+        
+        
+        borderPane.setLeft(levaLista);
+        borderPane.setRight(pravaLista);
         borderPane.setBottom(dolniLista);
         borderPane.setTop(menuLista);
-        Scene scene = new Scene(borderPane, 900, 500);
+        Scene scene = new Scene(borderPane, 1000, 520);
         
         primaryStage.setTitle("Adventura");
         primaryStage.setScene(scene);
@@ -106,14 +130,6 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-
-    /**
-     * @return the mapa
-     */
-    public Mapa getMapa() {
-        return mapa;
-    }
-
     /**
      * @return the centralText
      */
@@ -140,6 +156,20 @@ public class Main extends Application {
      */
     public void setStage(Stage stage) {
         this.stage = stage;
+    }
+
+    /**
+     * @return the panelMapa
+     */
+    public PanelMapa getPanelMapa() {
+        return panelMapa;
+    }
+
+    /**
+     * @return the panelVychod
+     */
+    public PanelVychod getPanelVychod() {
+        return panelVychod;
     }
     
 }

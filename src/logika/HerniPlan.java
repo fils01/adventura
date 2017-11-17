@@ -39,30 +39,30 @@ public class HerniPlan implements Subject{
      */
     private void zalozProstoryHry() {
         // vytvářejí se jednotlivé prostory
-        Prostor uvodniMistnost = new Prostor("úvodní_místnost","malá chodba na začátku paláce", 10, 10);
-        Prostor hlavniSal = new Prostor("hlavní_sál","velký sál, který ti nabízí čtyři možné cesty dál", 20, 20);
+        Prostor uvodniMistnost = new Prostor("úvodní_místnost","malá chodba na začátku paláce", 90, 418);
+        Prostor hlavniSal = new Prostor("hlavní_sál","velký sál, který ti nabízí čtyři možné cesty dál", 90, 380);
         Prostor vezeniPrincezny = new Prostor("vězení_princezny","y", 30, 30);
         Prostor zbrojnice = new Prostor("zbrojnice","vyklizená zbrojnice, většinu věcí si vzal"
-        + " Sultán na své válečné tažení", 40, 40);
+        + " Sultán na své válečné tažení", 90, 335);
         Prostor mucirna = new Prostor("mučírna","deprimující mučírna, kde byli pro informace" 
-        + " i potěšení trápeni mnozí lidé", 50, 50);
+        + " i potěšení trápeni mnozí lidé", 150, 335);
         Prostor rozbiteSchodiste = new Prostor("rozbité_schodiště","staré rozpalé schodiště, které kdysi"
-        + " vedlo nahoru do místnosti ohňů", 60, 60);
+        + " vedlo nahoru do místnosti ohňů", 30, 335);
         Prostor chodbaTriZkousek = new Prostor("chodba_tří_zkoušek", "táhlá chodba, rozdělená na tři"
-        + " části, které mají různé barvy stěn", 70, 70);
+        + " části, které mají různé barvy stěn", 150, 310);
         Prostor prvniZkouska = new Prostor("první_zkouška","zhruba třímetrová část, "
         + "\nkde ze země před tebou vyskakují ostré "
-        + "\nmetrové hroty. To jen tak neprojdeš.", 80, 80);
+        + "\nmetrové hroty. To jen tak neprojdeš.", 150, 290);
         Prostor druhaZkouska = new Prostor("druhá_zkouška","další třímetrová část, bohužel v cestě dál "
         + "\nti brání zamčené dveře, na kterých je zámek s číslicemi 1-9, "
-        + "\nu každé číslice je malá páčka, kterou se zřejmě volí vstupní číslo", 90, 90);
-        Prostor tretiZkouska = new Prostor("třetí_zkouška","bráněna pěšákem, který vypadá velmi nepřátelsky", 100, 100);
-        Prostor tajnaSkrys = new Prostor("tajná_skrýš","tajná místnost, která byla používána jako úkryt", 110, 110);
-        Prostor most = new Prostor("most", "rozpadlý most přes propast. To jen tak nepřeskočíš", 120, 120);
+        + "\nu každé číslice je malá páčka, kterou se zřejmě volí vstupní číslo", 150, 245);
+        Prostor tretiZkouska = new Prostor("třetí_zkouška","bráněna pěšákem, který vypadá velmi nepřátelsky", 150, 185);
+        Prostor tajnaSkrys = new Prostor("tajná_skrýš","tajná místnost, která byla používána jako úkryt", 110, 185);
+        Prostor most = new Prostor("most", "rozpadlý most přes propast. To jen tak nepřeskočíš", 140, 150);
         Prostor vez = new Prostor("věž", "první poschodí věže, kde je uvězněná princezna, bohužel ti "
-        + "v cestě dál brání zlý Vezír!", 130, 130);
+        + "v cestě dál brání zlý Vezír!", 75, 75);
         Prostor komnataPrincezny = new Prostor("komnata_princezny", "cela na vrcholu věže, kde je zamčená" 
-        + " princezna", 140, 140);
+        + " princezna", 75, 20);
         
         
         
