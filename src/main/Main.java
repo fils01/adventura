@@ -105,7 +105,7 @@ public class Main extends Application {
         FlowPane pravaLista = new FlowPane();
         pravaLista.setAlignment(Pos.TOP_CENTER);
         pravaLista.setPrefWidth(200);
-        pravaLista.getChildren().add(getPanelVychod());
+        pravaLista.getChildren().addAll(getPanelVychod().getSeznamVychodu());
         
         FlowPane levaLista = new FlowPane();
         levaLista.setAlignment(Pos.TOP_CENTER);

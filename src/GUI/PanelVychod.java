@@ -34,24 +34,27 @@ public class PanelVychod extends ListView implements Observer{
     private void init() {
         seznamVychodu = new ListView<>();
         mistnosti = FXCollections.observableArrayList();
-        seznamVychodu.setItems(mistnosti);
-        seznamVychodu.setPrefWidth(200);
+        getSeznamVychodu().setItems(mistnosti);
+        getSeznamVychodu().setPrefWidth(200);
         
         String vychody = plan.getAktualniProstor().popisVychodu();
         
         String[] oddeleneVychody = vychody.split(" ");
         
-        for (int i = 0; i < oddeleneVychody.length; i++) {
+        for (int i = 6; i < oddeleneVychody.length; i++) {
             mistnosti.add(oddeleneVychody[i]);
         }
         
     }
     
     
-    public void nastaveniHernihoPlanu (HerniPlan plan){
-        this.plan = plan;
-        plan.registerObserver(this);
-        this.update();
+    
+    public void newGame(IHra novaHra) {
+        hra.getHerniPlan().removeObserver(this);
+        
+        hra = novaHra;
+        hra.getHerniPlan().registerObserver(this);
+        update();
     }
     
     @Override
@@ -59,9 +62,16 @@ public class PanelVychod extends ListView implements Observer{
         String vychody = plan.getAktualniProstor().popisVychodu();
         mistnosti.clear();
         String[] oddeleneVychody = vychody.split(" ");
-        for (int i = 0; i < oddeleneVychody.length; i++) {
+        for (int i = 6; i < oddeleneVychody.length; i++) {
             mistnosti.add(oddeleneVychody[i]);
         }
+    }
+
+    /**
+     * @return the seznamVychodu
+     */
+    public ListView<String> getSeznamVychodu() {
+        return seznamVychodu;
     }
 
 }
