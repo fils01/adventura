@@ -38,12 +38,11 @@ public class PanelVychod extends ListView implements Observer{
         getSeznamVychodu().setPrefWidth(200);
         getSeznamVychodu().setMaxHeight(200);
         
-        String vychody = hra.getHerniPlan().getAktualniProstor().popisVychodu();
-        
-        String[] oddeleneVychody = vychody.split(" ");
-        
-        for (int i = 6; i < oddeleneVychody.length; i++) {
-            mistnosti.add(oddeleneVychody[i]);
+        Collection<Prostor> sousedniMistnosti = hra.getHerniPlan()
+                .getAktualniProstor().getVychody();
+        for (Prostor prostor : sousedniMistnosti) {
+            mistnosti.add(prostor.getNazev());
+            
         }
         update();
     }
@@ -60,11 +59,15 @@ public class PanelVychod extends ListView implements Observer{
     
     @Override
     public void update() {
-        String vychody = hra.getHerniPlan().getAktualniProstor().popisVychodu();
+        
+        
+        
         mistnosti.clear();
-        String[] oddeleneVychody = vychody.split(" ");
-        for (int i = 6; i < oddeleneVychody.length; i++) {
-            mistnosti.add(oddeleneVychody[i]);
+        Collection<Prostor> sousedniMistnosti = hra.getHerniPlan()
+                .getAktualniProstor().getVychody();
+        for (Prostor prostor : sousedniMistnosti) {
+            mistnosti.add(prostor.getNazev());
+            
         }
     }
 
