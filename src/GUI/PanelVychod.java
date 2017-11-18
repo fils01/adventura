@@ -36,6 +36,7 @@ public class PanelVychod extends ListView implements Observer{
         mistnosti = FXCollections.observableArrayList();
         getSeznamVychodu().setItems(mistnosti);
         getSeznamVychodu().setPrefWidth(200);
+        getSeznamVychodu().setMaxHeight(160);
         
         String vychody = plan.getAktualniProstor().popisVychodu();
         
