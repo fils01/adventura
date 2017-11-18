@@ -17,6 +17,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
+import logika.HerniPlan;
 import logika.Hra;
 import logika.IHra;
 import main.Main;
@@ -29,10 +30,12 @@ public class MenuLista extends MenuBar{
     
     private IHra hra;
     private Main main;
+    private HerniPlan plan;
     
     public MenuLista(IHra hra, Main main) {
         this.hra = hra;
         this.main = main;
+        this.plan = plan;
         init();
     }
     
@@ -69,6 +72,7 @@ public class MenuLista extends MenuBar{
             public void handle(ActionEvent event) {
                 hra = new Hra();
                 main.getPanelMapa().newGame(hra);
+                main.getPanelVychod().newGame(hra);
                 main.setHra(hra);
                 main.getCentralText().setText(hra.vratUvitani());
             }

@@ -56,7 +56,7 @@ public class Main extends Application {
         this.setStage(primaryStage);
         setHra(new Hra());
         
-        panelVychod = new PanelVychod(hra.getHerniPlan());
+        panelVychod = new PanelVychod(hra);
         panelMapa = new PanelMapa(hra);
         menuLista = new MenuLista(hra, this);
         BorderPane borderPane = new BorderPane();

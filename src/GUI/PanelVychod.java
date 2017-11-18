@@ -25,9 +25,9 @@ public class PanelVychod extends ListView implements Observer{
     private IHra hra;
     private HerniPlan plan;
     
-    public PanelVychod(HerniPlan plan){
-        this.plan = plan;
-        plan.registerObserver(this);
+    public PanelVychod(IHra hra){
+        this.hra = hra;
+        hra.getHerniPlan().registerObserver(this);
         init();
     }
     
@@ -36,16 +36,16 @@ public class PanelVychod extends ListView implements Observer{
         mistnosti = FXCollections.observableArrayList();
         getSeznamVychodu().setItems(mistnosti);
         getSeznamVychodu().setPrefWidth(200);
-        getSeznamVychodu().setMaxHeight(160);
+        getSeznamVychodu().setMaxHeight(200);
         
-        String vychody = plan.getAktualniProstor().popisVychodu();
+        String vychody = hra.getHerniPlan().getAktualniProstor().popisVychodu();
         
         String[] oddeleneVychody = vychody.split(" ");
         
         for (int i = 6; i < oddeleneVychody.length; i++) {
             mistnosti.add(oddeleneVychody[i]);
         }
-        
+        update();
     }
     
     
@@ -60,7 +60,7 @@ public class PanelVychod extends ListView implements Observer{
     
     @Override
     public void update() {
-        String vychody = plan.getAktualniProstor().popisVychodu();
+        String vychody = hra.getHerniPlan().getAktualniProstor().popisVychodu();
         mistnosti.clear();
         String[] oddeleneVychody = vychody.split(" ");
         for (int i = 6; i < oddeleneVychody.length; i++) {
