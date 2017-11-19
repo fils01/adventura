@@ -19,6 +19,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
@@ -81,21 +82,31 @@ public class Main extends Application {
                 String vstupniPrikaz = zadejPrikazTextField.getText();
                 String odpovedHry = hra.zpracujPrikaz(vstupniPrikaz);
                 
-                getCentralText().appendText("\n" + vstupniPrikaz + "\n");
-                getCentralText().appendText("\n" + odpovedHry + "\n");
+                appendCentralText(vstupniPrikaz);
                 
                 zadejPrikazTextField.clear();
 
                 if (hra.konecHry()){
                     zadejPrikazTextField.setEditable(false);
-                    getCentralText().appendText(hra.vratEpilog());
+                    appendCentralText(hra.vratEpilog());
                 }
             }
         });
-        
-        ImageView blbost = new ImageView(new Image(
-                Main.class.getResourceAsStream("/zdroje/mapa2.png"),
-                200,450,true,true));
+        //tohle začalo fungovat ve 2:39 ráno, děkuji pěkně
+        //no a co že main má milion řádků
+        getPanelVychod().getSeznamVychodu().setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                String jmenoVychodu = getPanelVychod().getSeznamVychodu().
+                        getSelectionModel().getSelectedItem();
+                String vytvorenyPrikaz = "jdi " + jmenoVychodu;
+                String odpovedNaVytvorenyPrikaz = hra.zpracujPrikaz(vytvorenyPrikaz);
+                //prostě to vypisování v centraltextu nefunguje a nevím ani v 2:01 ráno proč
+                //PanelVychod.this.main.centralVstupniPrikaz(vytvorenyPrikaz);
+                //PanelVychod.this.main.centralOdpovedHry(odpovedNaVytvorenyPrikaz);
+                appendCentralText(odpovedNaVytvorenyPrikaz);
+            }
+        });
         
         
         FlowPane dolniLista = new FlowPane();
@@ -124,6 +135,9 @@ public class Main extends Application {
         primaryStage.show();
     }
     
+    public void appendCentralText(String vstupniPrikaz) {
+        this.getCentralText().appendText("\n" + vstupniPrikaz + "\n");
+    }
     /**
      * @param args the command line arguments
      */

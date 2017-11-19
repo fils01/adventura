@@ -6,12 +6,17 @@
 package GUI;
 
 import java.util.Collection;
+import java.util.Iterator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
+import javafx.scene.input.MouseEvent;
 import logika.HerniPlan;
 import logika.IHra;
 import logika.Prostor;
+import main.Main;
 import utils.Observer;
 
 /**
@@ -20,10 +25,12 @@ import utils.Observer;
  */
 public class PanelVychod extends ListView implements Observer{
     
-    private ListView<String> seznamVychodu;
-    ObservableList<String> mistnosti;
     private IHra hra;
     private HerniPlan plan;
+    private Main main;
+    private ListView<String> seznamVychodu;
+    ObservableList<String> mistnosti;
+    
     
     public PanelVychod(IHra hra){
         this.hra = hra;
@@ -32,18 +39,21 @@ public class PanelVychod extends ListView implements Observer{
     }
     
     private void init() {
+        Collection<Prostor> sousedniMistnosti = hra.getHerniPlan()
+                .getAktualniProstor().getVychody();
         seznamVychodu = new ListView<>();
         mistnosti = FXCollections.observableArrayList();
         getSeznamVychodu().setItems(mistnosti);
         getSeznamVychodu().setPrefWidth(200);
         getSeznamVychodu().setMaxHeight(200);
         
-        Collection<Prostor> sousedniMistnosti = hra.getHerniPlan()
-                .getAktualniProstor().getVychody();
+        
         for (Prostor prostor : sousedniMistnosti) {
             mistnosti.add(prostor.getNazev());
             
         }
+        
+        //ListCell vybere jméno prostoru a přesune se do něj
         update();
     }
     
@@ -59,18 +69,18 @@ public class PanelVychod extends ListView implements Observer{
     
     @Override
     public void update() {
-        
-        
-        
-        mistnosti.clear();
         Collection<Prostor> sousedniMistnosti = hra.getHerniPlan()
                 .getAktualniProstor().getVychody();
-        for (Prostor prostor : sousedniMistnosti) {
+        mistnosti.clear();
+        
+        sousedniMistnosti.forEach((prostor) -> {
             mistnosti.add(prostor.getNazev());
-            
-        }
+        });
+        
     }
-
+    
+    
+    
     /**
      * @return the seznamVychodu
      */
