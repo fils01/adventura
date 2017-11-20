@@ -2,6 +2,8 @@
  * Kontrola kódování: Příliš žluťoučký kůň úpěl ďábelské ódy. */
 package logika;
 
+import GUI.PanelVeciVProstoru;
+
 
 
 
@@ -42,6 +44,7 @@ public class PrikazZahod implements IPrikaz
         if(vec == null){
             return "\nTaková věc v inventáři není\n";
         } else {
+            
             aktualniProstor.vlozVec(vec);
             return "\nZahodil jsi " + nazevZahozeneVeci + "\n";
         }

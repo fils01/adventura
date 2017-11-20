@@ -48,7 +48,7 @@ public class PrikazBojuj implements IPrikaz
                     plan.setProhra(true);
                 }
                 if(aktualniProstor.getNazev().equals("věž") && inventar.obsahujeVec("velký_meč")){
-                    Vec klic = new Vec("klíč", true, "Klíč do cely princezny");
+                    Vec klic = new Vec("klíč", true, "Klíč do cely princezny", "/zdroje/klic.png");
                     aktualniProstor.vlozVec(klic);
                     return "\nZabil jsi Vezíra! Po jeho útoku dýkami jsi kontroval přesnou ranou do srdce."
                     + "\nZ Vezíra také vypadl klíč, který odemyká celu princezny.\n";

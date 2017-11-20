@@ -7,6 +7,8 @@ package main;
 
 import GUI.PanelMapa;
 import GUI.MenuLista;
+import GUI.PanelInventar;
+import GUI.PanelVeciVProstoru;
 import GUI.PanelVychod;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -47,6 +49,8 @@ public class Main extends Application {
     
     private PanelVychod panelVychod;
     private PanelMapa panelMapa;
+    private PanelVeciVProstoru panelVeciVProstoru;
+    private PanelInventar panelInventar;
     private MenuLista menuLista;
     
     
@@ -59,6 +63,8 @@ public class Main extends Application {
         
         panelVychod = new PanelVychod(hra);
         panelMapa = new PanelMapa(hra);
+        panelVeciVProstoru = new PanelVeciVProstoru(hra);
+        panelInventar = new PanelInventar(hra);
         menuLista = new MenuLista(hra, this);
         BorderPane borderPane = new BorderPane();
         
@@ -83,6 +89,7 @@ public class Main extends Application {
                 String odpovedHry = hra.zpracujPrikaz(vstupniPrikaz);
                 
                 appendCentralText(vstupniPrikaz);
+                appendCentralText(odpovedHry);
                 
                 zadejPrikazTextField.clear();
 
@@ -92,8 +99,8 @@ public class Main extends Application {
                 }
             }
         });
-        //tohle začalo fungovat ve 2:39 ráno, děkuji pěkně
-        //no a co že main má milion řádků
+        
+        
         getPanelVychod().getSeznamVychodu().setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -101,9 +108,6 @@ public class Main extends Application {
                         getSelectionModel().getSelectedItem();
                 String vytvorenyPrikaz = "jdi " + jmenoVychodu;
                 String odpovedNaVytvorenyPrikaz = hra.zpracujPrikaz(vytvorenyPrikaz);
-                //prostě to vypisování v centraltextu nefunguje a nevím ani v 2:01 ráno proč
-                //PanelVychod.this.main.centralVstupniPrikaz(vytvorenyPrikaz);
-                //PanelVychod.this.main.centralOdpovedHry(odpovedNaVytvorenyPrikaz);
                 appendCentralText(odpovedNaVytvorenyPrikaz);
             }
         });
@@ -116,12 +120,15 @@ public class Main extends Application {
         FlowPane pravaLista = new FlowPane();
         pravaLista.setAlignment(Pos.TOP_CENTER);
         pravaLista.setPrefWidth(200);
-        pravaLista.getChildren().addAll(getPanelVychod().getSeznamVychodu());
+        pravaLista.getChildren().addAll(getPanelVychod().getVychodLabel(), 
+                getPanelVychod().getSeznamVychodu(), 
+                getPanelVeciVProstoru().getVecLabel(), getPanelVeciVProstoru(), 
+                getPanelInventar().getInventarLabel());
         
         FlowPane levaLista = new FlowPane();
         levaLista.setAlignment(Pos.TOP_CENTER);
         levaLista.setPrefWidth(200);
-        levaLista.getChildren().addAll(getPanelMapa());
+        levaLista.getChildren().addAll(getPanelMapa().getMapaLabel(), getPanelMapa());
         
         
         borderPane.setLeft(levaLista);
@@ -184,6 +191,20 @@ public class Main extends Application {
      */
     public PanelVychod getPanelVychod() {
         return panelVychod;
+    }
+
+    /**
+     * @return the panelVeciVProstoru
+     */
+    public PanelVeciVProstoru getPanelVeciVProstoru() {
+        return panelVeciVProstoru;
+    }
+
+    /**
+     * @return the panelInventar
+     */
+    public PanelInventar getPanelInventar() {
+        return panelInventar;
     }
     
 }

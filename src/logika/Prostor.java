@@ -19,6 +19,7 @@ public class Prostor {
 
     private String nazev;
     private String popis;
+    private Set<Vec> veci;
     private Set<Prostor> vychody;   // obsahuje sousední místnosti
     private Map<String, Vec> veciVProstoru;
     private Map<String, Postava> postavyVProstoru;
@@ -38,6 +39,7 @@ public class Prostor {
         this.posLeft = posLeft;
         this.posTop = posTop;
         vychody = new HashSet<>();
+        veci = new HashSet<>();
         veciVProstoru = new HashMap<>();
         postavyVProstoru = new HashMap<>();
     }
@@ -140,7 +142,7 @@ public class Prostor {
     
     public String popisVeci() {
         String vracenyText = "Nachází se zde:  ";
-        for (String nazev : veciVProstoru.keySet()) {
+        for (String nazev : getVeciVProstoru().keySet()) {
             vracenyText += nazev + ", ";
         }
         vracenyText += "\n";
@@ -183,26 +185,27 @@ public class Prostor {
     }
     
     public boolean vlozVec(Vec neco){
-        veciVProstoru.put(neco.getNazev(), neco);
+        getVeciVProstoru().put(neco.getNazev(), neco);
         return true;
     }
     
     public boolean jeVecVProstoru(String nazev){
-        return veciVProstoru.containsKey(nazev);
+        return getVeciVProstoru().containsKey(nazev);
     }
     
     public Vec odeberVec(String nazev){
-        return veciVProstoru.remove(nazev);
+        return getVeciVProstoru().remove(nazev);
     }
     
     public Vec vyberVec(String nazev){
         Vec vybranaVec;
-        if(veciVProstoru.containsKey(nazev));{
-            vybranaVec = veciVProstoru.get(nazev);
-            veciVProstoru.remove(nazev);
+        if(getVeciVProstoru().containsKey(nazev));{
+            vybranaVec = getVeciVProstoru().get(nazev);
+            getVeciVProstoru().remove(nazev);
             return vybranaVec;
         }
     }
+    
     
     public boolean vlozPostavu(Postava postava){
         postavyVProstoru.put(postava.getJmeno(), postava);
@@ -247,5 +250,12 @@ public class Prostor {
      */
     public double getPosTop() {
         return posTop;
+    }
+
+    /**
+     * @return the veciVProstoru
+     */
+    public Map<String, Vec> getVeciVProstoru() {
+        return veciVProstoru;
     }
 }

@@ -94,12 +94,12 @@ public class HerniPlan implements Subject{
         vez.setVychod(komnataPrincezny);
         
         //konstrukce věcí
-        Vec lano = new Vec("lano", true, "Lehké a bytelné lano");
-        Vec malyMec = new Vec("malý_meč", true, "Krátká perská šavle, kterou můžeš použít pro boj");
-        Vec koberec = new Vec("koberec", false, "Krásný koberec na kterém jsou vyšité horské scenérie");
-        Vec velkyMec = new Vec("velký_meč", true, "Krásný ostrý meč, na kterém je citát o věrnosti Sultánovi");
-        Vec pergamen = new Vec("pergamen", true, "Malý útržek pergamenu, na kterém je rozmazané číslo 125");
-        Vec hak = new Vec("hák", false, "Hák, který vypadá jako kdyby se na něj dalo zavěsit lano s očkem");
+        Vec lano = new Vec("lano", true, "Lehké a bytelné lano", "/zdroje/lano.png");
+        Vec malyMec = new Vec("malý_meč", true, "Krátká perská šavle, kterou můžeš použít pro boj", "/zdroje/malyMec.png");
+        Vec koberec = new Vec("koberec", false, "Krásný koberec na kterém jsou vyšité horské scenérie", "/zdroje/koberec.png");
+        Vec velkyMec = new Vec("velký_meč", true, "Krásný ostrý meč, na kterém je citát o věrnosti Sultánovi", "/zdroje/velkyMec.png");
+        Vec pergamen = new Vec("pergamen", true, "Malý útržek pergamenu, na kterém je rozmazané číslo 125", "/zdroje/pergamen.png");
+        Vec hak = new Vec("hák", false, "Hák, který vypadá jako kdyby se na něj dalo zavěsit lano s očkem", "/zdroje/hak.png");
         
         //vložení věcí do prostorů
         zbrojnice.vlozVec(lano);

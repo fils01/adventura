@@ -5,6 +5,8 @@ package logika;
 
 
 import java.util.*;
+import utils.ObserverInventar;
+import utils.SubjectInventar;
 
 /*******************************************************************************
  * Instance třídy {@code Inventar} představují ...
@@ -12,11 +14,12 @@ import java.util.*;
  * @author    jméno autora
  * @version   0.00.000
  */
-public class Inventar
-{
+public class Inventar implements SubjectInventar {
     
    private Map<String, Vec> seznamVeci;
    private static final int VELIKOST = 2;
+   
+   private List<Observer> listObserveruInventare = new ArrayList<Observer>();
    
     /***************************************************************************
      *
@@ -27,11 +30,11 @@ public class Inventar
     }
     
     public Vec getVec(String nazevVeci){
-        return seznamVeci.get(nazevVeci);
+        return getSeznamVeci().get(nazevVeci);
     }
     
     public boolean jeMistoVInventari(){
-        if(seznamVeci.size() < VELIKOST){
+        if(getSeznamVeci().size() < VELIKOST){
             return true;
         } else {
             return false;
@@ -40,7 +43,7 @@ public class Inventar
     
     public boolean vlozVec (Vec vec){
         if(jeMistoVInventari() && vec.jePrenositelna()){
-            seznamVeci.put(vec.getNazev(), vec);
+            getSeznamVeci().put(vec.getNazev(), vec);
             return true;
         } else {
             return false;
@@ -49,16 +52,16 @@ public class Inventar
     
     public Vec vyhodVec(String nazev){
         Vec vyhozenaVec = null;
-        if(seznamVeci.containsKey(nazev)){
-            vyhozenaVec = seznamVeci.get(nazev);
-            seznamVeci.remove(nazev);
+        if(getSeznamVeci().containsKey(nazev)){
+            vyhozenaVec = getSeznamVeci().get(nazev);
+            getSeznamVeci().remove(nazev);
             
         }
         return vyhozenaVec;
     }
     
     public boolean obsahujeVec(String nazev){
-        if(seznamVeci.containsKey(nazev)){
+        if(getSeznamVeci().containsKey(nazev)){
             return true;
         } else {
             return false;
@@ -67,13 +70,37 @@ public class Inventar
     
     public String nazvyVeci(){
         String nazvy = "\nV inventáři se nachází ";
-        if(seznamVeci.size() == 0){
+        if(getSeznamVeci().size() == 0){
             nazvy = "\nInventář je prázdný.";
         } else {
-            for(String nazevVeci : seznamVeci.keySet()){
+            for(String nazevVeci : getSeznamVeci().keySet()){
                 nazvy += nazevVeci + ", ";
             }
         }
         return nazvy;
+    }
+
+    /**
+     * @return the seznamVeci
+     */
+    public Map<String, Vec> getSeznamVeci() {
+        return seznamVeci;
+    }
+
+    @Override
+    public void registerObserver(ObserverInventar observer) {
+        listObserveruInventare.add(observer);
+    }
+
+    @Override
+    public void removeObserver(ObserverInventar observer) {
+        listObserveruInventare.remove(observer)
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (Observer observer : listObserveruInventare) {
+            observer.update();
+        }
     }
 }

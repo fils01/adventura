@@ -11,8 +11,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import logika.HerniPlan;
 import logika.IHra;
 import logika.Prostor;
@@ -30,9 +33,10 @@ public class PanelVychod extends ListView implements Observer{
     private Main main;
     private ListView<String> seznamVychodu;
     ObservableList<String> mistnosti;
+    private Label vychodLabel;
     
     
-    public PanelVychod(IHra hra){
+    public PanelVychod(IHra hra) {
         this.hra = hra;
         hra.getHerniPlan().registerObserver(this);
         init();
@@ -45,8 +49,10 @@ public class PanelVychod extends ListView implements Observer{
         mistnosti = FXCollections.observableArrayList();
         getSeznamVychodu().setItems(mistnosti);
         getSeznamVychodu().setPrefWidth(200);
-        getSeznamVychodu().setMaxHeight(200);
-        
+        getSeznamVychodu().setMaxHeight(120);
+        vychodLabel = new Label("Východy:");
+        getVychodLabel().setFont(Font.font("Avenir Next", FontWeight.BOLD, 16));
+        getVychodLabel().setPrefWidth(200);
         
         for (Prostor prostor : sousedniMistnosti) {
             mistnosti.add(prostor.getNazev());
@@ -86,6 +92,13 @@ public class PanelVychod extends ListView implements Observer{
      */
     public ListView<String> getSeznamVychodu() {
         return seznamVychodu;
+    }
+
+    /**
+     * @return the vychodLabel
+     */
+    public Label getVychodLabel() {
+        return vychodLabel;
     }
 
 }

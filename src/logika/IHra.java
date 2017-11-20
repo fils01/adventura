@@ -37,6 +37,12 @@ public interface IHra
      */
      public boolean konecHry();
      
+     
+     /**
+      * vrací inventář
+     * @return obejkt inventář
+      */
+     public Inventar getInventar();
       /**
      *  Metoda zpracuje řetězec uvedený jako parametr, rozdělí ho na slovo příkazu a další parametry.
      *  Pak otestuje zda příkaz je klíčovým slovem  např. jdi.

@@ -5,9 +5,12 @@
  */
 package GUI;
 
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import logika.IHra;
 import main.Main;
 import utils.Observer;
@@ -19,6 +22,7 @@ import utils.Observer;
 public class PanelMapa extends AnchorPane implements Observer{
     
     private IHra hra;
+    private Label mapaLabel;
     
     ImageView princ = new ImageView(new Image(
                 Main.class.getResourceAsStream("/zdroje/princ.png"),
@@ -35,6 +39,9 @@ public class PanelMapa extends AnchorPane implements Observer{
                 Main.class.getResourceAsStream("/zdroje/mapa.png"),
                 200,450,true,true));
         
+        mapaLabel = new Label("Mapa:");
+        getMapaLabel().setFont(Font.font("Avenir Next", FontWeight.BOLD, 16));
+        getMapaLabel().setPrefWidth(200);
         //tecka = new Circle(8, Paint.valueOf("red"));
         
         //this.setTopAnchor(tecka, 0.0);
@@ -59,6 +66,13 @@ public class PanelMapa extends AnchorPane implements Observer{
     public void update() {
         this.setTopAnchor(princ, hra.getHerniPlan().getAktualniProstor().getPosTop());
         this.setLeftAnchor(princ, hra.getHerniPlan().getAktualniProstor().getPosLeft());
+    }
+
+    /**
+     * @return the mapaLabel
+     */
+    public Label getMapaLabel() {
+        return mapaLabel;
     }
     
 }
