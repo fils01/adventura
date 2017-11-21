@@ -6,96 +6,136 @@
 package GUI;
 
 import java.util.Map;
-import javafx.scene.control.Button;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import logika.HerniPlan;
+import logika.Hra;
 import logika.IHra;
-import logika.Inventar;
 import logika.Vec;
-import main.Main;
-import utils.ObserverInventar;
+import utils.Observer;
 
 /**
  *
  * @author sf
  */
-public class PanelInventar extends HBox implements ObserverInventar{
+
+public class PanelInventar implements Observer{
+    
+    private HerniPlan plan;
+    ListView<Object> list;
+    ObservableList<Object> data;
     private IHra hra;
-    private Inventar inventar;
-    private Map<String, Vec> mapaVeciVInventari;
-    private Label inventarLabel;
-    private Button tlacitkoVeciVInventari;
+    private Label InventarLabel;
+
     
-    
-    public PanelInventar(IHra hra) {
-        this.hra = hra;
-        hra.getInventar().registerObserver(this);
+    private TextArea centralText;
+
+    /*
+    * Konstruktor pro panel kapsy.
+    */
+    public PanelInventar(HerniPlan plan,TextArea text, IHra hra) {
+       this.plan = plan;
+       plan.registerObserver(this);
+       centralText = text;
+       this.hra = hra;
         init();
     }
-    
+
+    /*
+    * Metoda vytvoří list pro věci v kapse.
+    */
     private void init() {
-        inventarLabel = new Label("Inventář:");
-        getInventarLabel().setFont(Font.font("Avenir Next", FontWeight.BOLD, 16));
-        getInventarLabel().setPrefWidth(200);
+        list = new ListView<>();
+        data = FXCollections.observableArrayList();
+        list.setItems(data);
+        list.setPrefWidth(200);
         
-        this.getChildren().clear();
+        InventarLabel = new Label("Inventář:");
+        InventarLabel.setFont(Font.font("Avenir Next", FontWeight.BOLD, 16));
+        InventarLabel.setPrefWidth(200);
         
-        try {
-            mapaVeciVInventari = hra.getInventar().getSeznamVeci();
-            for (String vec : mapaVeciVInventari.keySet()) {
-                Vec pomocna = mapaVeciVInventari.get(vec);
-                tlacitkoVeciVInventari = new Button(pomocna.getNazev(), new ImageView(new Image(
-                        Main.class.getResourceAsStream(pomocna.getAdresaObrazkuVeci()), 30, 30, false, false)));
+        list.setOnMouseClicked(new EventHandler<MouseEvent>() 
+        {
+            @Override
+            public void handle(MouseEvent click)
+            {
+                    int index = list.getSelectionModel().getSelectedIndex();
+                    
+                    Map<String, Vec> seznam;
+                    seznam = hra.getInventar().getSeznamVeci();
+                    
+                    String nazev = "";
+                    int pomocna = 0;
+                    for (String x : seznam.keySet()) 
+                    {
+                       if(pomocna == index)
+                       {
+                           nazev = x;
+                       }
+                       pomocna++;
+                    }
+                    
+                    String vstupniPrikaz = "zahoď "+nazev;
+                    String odpovedHry = hra.zpracujPrikaz("zahoď "+nazev);
+
                 
-                this.getChildren().add(getTlacitkoVeciVInventari());
+                    centralText.appendText("\n" + vstupniPrikaz + "\n");
+                    centralText.appendText("\n" + odpovedHry + "\n");
+               
+                    plan.notifyObservers();
             }
-        } catch(Exception dalsi) {
+        });
         
-        }
-    }
-    
-    
-    
-    @Override
-    public void update() {
-        try {
-            mapaVeciVInventari = hra.getInventar().getSeznamVeci();
-            for (String vec : mapaVeciVInventari.keySet()) {
-                Vec pomocna = mapaVeciVInventari.get(vec);
-                tlacitkoVeciVInventari = new Button(pomocna.getNazev(), new ImageView(new Image(
-                        Main.class.getResourceAsStream(pomocna.getAdresaObrazkuVeci()), 30, 30, false, false)));
-                
-                this.getChildren().add(getTlacitkoVeciVInventari());
-                update();
-            }
-        } catch(Exception dalsi) {
         
-        }
-    }
-    
-    public void newGame(IHra novaHra) {
-        hra.getInventar().removeObserver(this);
         
-        hra = novaHra;
-        hra.getInventar().registerObserver(this);
         update();
     }
-
+    
+    /*
+    * Metoda vrací list.
+    */
+    public ListView<Object> getList() {
+        return list;
+    }
+    
+    /*
+    * Metoda aktualizuje list věcí v kapse. Zobrazuje obrázky věcí, které má hráč u sebe.
+    */
+    @Override 
+    public void update() 
+    {        
+        Map<String, Vec> seznam;
+        seznam = hra.getInventar().getSeznamVeci();
+        data.clear();
+        for (String x : seznam.keySet()) 
+        {
+        Vec pomocna = seznam.get(x);
+        ImageView obrazek = new ImageView(new Image(main.Main.class.getResourceAsStream(pomocna.getAdresaObrazkuVeci()), 100, 100, false, false));
+        data.add(obrazek);
+        }
+    }
+    
     /**
-     * @return the inventarLabel
+     * Metoda zaregistruje pozorovatele k hernímu plánu při spuštění nové hry.
+     * @param plan
      */
+    public void nastaveniHernihoPlanu (HerniPlan plan){
+        this.plan = plan;
+        plan.registerObserver(this);
+        this.update();
+    }
+
     public Label getInventarLabel() {
-        return inventarLabel;
+        return InventarLabel;
     }
 
-    /**
-     * @return the tlacitkoVeciVInventari
-     */
-    public Button getTlacitkoVeciVInventari() {
-        return tlacitkoVeciVInventari;
-    }
 }

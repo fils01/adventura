@@ -5,8 +5,6 @@ package logika;
 
 
 import java.util.*;
-import utils.ObserverInventar;
-import utils.SubjectInventar;
 
 /*******************************************************************************
  * Instance třídy {@code Inventar} představují ...
@@ -14,7 +12,7 @@ import utils.SubjectInventar;
  * @author    jméno autora
  * @version   0.00.000
  */
-public class Inventar implements SubjectInventar {
+public class Inventar{
     
    private Map<String, Vec> seznamVeci;
    private static final int VELIKOST = 2;
@@ -85,22 +83,5 @@ public class Inventar implements SubjectInventar {
      */
     public Map<String, Vec> getSeznamVeci() {
         return seznamVeci;
-    }
-
-    @Override
-    public void registerObserver(ObserverInventar observer) {
-        listObserveruInventare.add(observer);
-    }
-
-    @Override
-    public void removeObserver(ObserverInventar observer) {
-        listObserveruInventare.remove(observer)
-    }
-
-    @Override
-    public void notifyObservers() {
-        for (Observer observer : listObserveruInventare) {
-            observer.update();
-        }
     }
 }

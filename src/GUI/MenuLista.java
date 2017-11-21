@@ -31,11 +31,13 @@ public class MenuLista extends MenuBar{
     private IHra hra;
     private Main main;
     private HerniPlan plan;
+    private Stage stage;
     
-    public MenuLista(IHra hra, Main main) {
+    public MenuLista(IHra hra, Main main,Stage stage) {
         this.hra = hra;
         this.main = main;
         this.plan = plan;
+        this.stage = stage;
         init();
     }
     
@@ -69,12 +71,9 @@ public class MenuLista extends MenuBar{
         
         novaHra.setOnAction(new EventHandler<ActionEvent>() {
             @Override
-            public void handle(ActionEvent event) {
-                hra = new Hra();
-                main.getPanelMapa().newGame(hra);
-                main.getPanelVychod().newGame(hra);
-                main.setHra(hra);
-                main.getCentralText().setText(hra.vratUvitani());
+            public void handle(ActionEvent event) 
+            {
+                main.start(stage);
             }
         });
         

@@ -63,13 +63,12 @@ public class Main extends Application {
         
         panelVychod = new PanelVychod(hra);
         panelMapa = new PanelMapa(hra);
-        panelVeciVProstoru = new PanelVeciVProstoru(hra);
-        panelInventar = new PanelInventar(hra);
-        menuLista = new MenuLista(hra, this);
+        menuLista = new MenuLista(hra, this,stage);
         BorderPane borderPane = new BorderPane();
         
         
         centralText = new TextArea();
+        panelVeciVProstoru = new PanelVeciVProstoru(hra,centralText);
         getCentralText().setFont(Font.font("Avenir Next", FontWeight.BOLD, 14));
         getCentralText().setText(hra.vratUvitani());
         getCentralText().setEditable(false);
@@ -79,7 +78,7 @@ public class Main extends Application {
         zadejPrikazLabel.setFont(Font.font("Avenir Next", FontWeight.BOLD, 16));
         
         zadejPrikazTextField = new TextField("");
-        zadejPrikazTextField.setMinWidth(670);
+        zadejPrikazTextField.setMinWidth(200);
         zadejPrikazTextField.requestFocus();
         zadejPrikazTextField.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -117,13 +116,16 @@ public class Main extends Application {
         dolniLista.setAlignment(Pos.CENTER);
         dolniLista.getChildren().addAll(zadejPrikazLabel,zadejPrikazTextField);
         
+        
+        panelInventar = new PanelInventar(hra.getHerniPlan(),centralText,hra);
+        
         FlowPane pravaLista = new FlowPane();
         pravaLista.setAlignment(Pos.TOP_CENTER);
         pravaLista.setPrefWidth(200);
         pravaLista.getChildren().addAll(getPanelVychod().getVychodLabel(), 
                 getPanelVychod().getSeznamVychodu(), 
                 getPanelVeciVProstoru().getVecLabel(), getPanelVeciVProstoru(), 
-                getPanelInventar().getInventarLabel());
+                getPanelInventar().getInventarLabel(),getPanelInventar().getList());
         
         FlowPane levaLista = new FlowPane();
         levaLista.setAlignment(Pos.TOP_CENTER);

@@ -32,14 +32,19 @@ public class PrikazSeber implements IPrikaz
         if (parametry.length == 0) {            
             return "Co chceš sebrat?" + "\n";
         }
-
+        
+        System.out.println(parametry[0]);
+        
         String nazevSbiraneVeci = parametry[0];
         
         Prostor aktualniProstor = plan.getAktualniProstor();
         //sebereme z prostoru věc, pokud je místo v inventáři tak ji vložíme, jinak vrátíme zpět do prostoru
-        if (aktualniProstor.jeVecVProstoru(nazevSbiraneVeci)) {
+        if (aktualniProstor.jeVecVProstoru(nazevSbiraneVeci)) 
+        {
             Vec odebiranaVec = aktualniProstor.vyberVec(nazevSbiraneVeci);
-            if(!odebiranaVec.jePrenositelna()){
+            if(!odebiranaVec.jePrenositelna())
+            {
+                aktualniProstor.vlozVec(odebiranaVec);
                 return "Tohle nemůžeš sebrat" + "\n";
             }
             if(odebiranaVec.jePrenositelna() && inventar.vlozVec(odebiranaVec)){

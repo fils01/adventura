@@ -23,8 +23,8 @@ public class Hra implements IHra {
      *  Vytváří hru a inicializuje místnosti (prostřednictvím třídy HerniPlan) a seznam platných příkazů.
      */
     public Hra() {
+        inventar = new Inventar();
         herniPlan = new HerniPlan();
-        Inventar inventar = new Inventar();
         platnePrikazy = new SeznamPrikazu();
         platnePrikazy.vlozPrikaz(new PrikazNapoveda(platnePrikazy));
         platnePrikazy.vlozPrikaz(new PrikazJdi(herniPlan, inventar));

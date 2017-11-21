@@ -10,8 +10,10 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -31,10 +33,12 @@ public class PanelVeciVProstoru extends HBox implements Observer{
     private Map<String, Vec> mapaVeciVProstoru;
     private Button tlacitkoVeci;
     private Label vecLabel;
+    private TextArea centralText;
     
-    public PanelVeciVProstoru(IHra hra) {
+    public PanelVeciVProstoru(IHra hra,TextArea text) {
         this.hra = hra;
         hra.getHerniPlan().registerObserver(this);
+        this.centralText = text;
         init();
     }
     
@@ -50,26 +54,35 @@ public class PanelVeciVProstoru extends HBox implements Observer{
          */
         this.getChildren().clear();
         
-        for (String vec : mapaVeciVProstoru.keySet()) {
+        for (String vec : mapaVeciVProstoru.keySet()) 
+        {
             Vec pomocna = mapaVeciVProstoru.get(vec);
             tlacitkoVeci = new Button(pomocna.getNazev(), new ImageView(new Image(
                     Main.class.getResourceAsStream(pomocna.getAdresaObrazkuVeci()), 30, 30, false, false)));
             
             this.getChildren().add(getTlacitkoVeci());
-            getTlacitkoVeci().setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event) {
-                    String jmenoVeci = pomocna.getNazev();
-                    String vytvorenyPrikaz = "seber " + jmenoVeci;
-                    String odpovedNaVytvorenyPrikaz = hra.zpracujPrikaz(vytvorenyPrikaz);
-                }
-            });
-        }
-        
+           
+            tlacitkoVeci.setOnMouseClicked(new EventHandler<MouseEvent>() 
+        {
+            @Override
+            public void handle(MouseEvent click)
+            {
+                String vstupniPrikaz = "seber " + tlacitkoVeci.getText();
+                String odpovedHry = hra.zpracujPrikaz("seber " + tlacitkoVeci.getText());
+
+                
+                centralText.appendText("\n" + vstupniPrikaz + "\n");
+                centralText.appendText("\n" + odpovedHry + "\n");
+               
+                hra.getHerniPlan().notifyObservers();
+            }
+        });
         update();
+        }
     }
     
-    public void newGame(IHra novaHra) {
+    public void newGame(IHra novaHra) 
+    {
         hra.getHerniPlan().removeObserver(this);
         
         hra = novaHra;
@@ -92,19 +105,22 @@ public class PanelVeciVProstoru extends HBox implements Observer{
                         Main.class.getResourceAsStream(pomocna.getAdresaObrazkuVeci()), 30, 30, false, false)));
                 
                 this.getChildren().add(getTlacitkoVeci());
-                getTlacitkoVeci().setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent event) {
-                        String jmenoVeci = pomocna.getNazev();
-                        if(pomocna.jePrenositelna()) {
-                            String vytvorenyPrikaz = "seber " + jmenoVeci;
-                            String odpovedNaVytvorenyPrikaz = hra.zpracujPrikaz(vytvorenyPrikaz);
-                            update();
-                        }
-                    }
-                });
-            } catch(Exception exception) {
+                tlacitkoVeci.setOnMouseClicked(new EventHandler<MouseEvent>() 
+        {
+            @Override
+            public void handle(MouseEvent click)
+            {
+                String vstupniPrikaz = "seber " + tlacitkoVeci.getText();
+                String odpovedHry = hra.zpracujPrikaz("seber " + tlacitkoVeci.getText());
+
+                centralText.appendText("\n" + vstupniPrikaz + "\n");
+                centralText.appendText("\n" + odpovedHry + "\n");
+               
+                hra.getHerniPlan().notifyObservers();
                 
+            }
+        });
+            } catch(Exception exception) { 
             }
         }
     }
