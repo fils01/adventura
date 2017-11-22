@@ -6,11 +6,8 @@
 package GUI;
 
 import java.util.Map;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
@@ -31,6 +28,9 @@ import utils.Observer;
 public class PanelVeciVProstoru extends HBox implements Observer {
 
     private IHra hra;
+    /**
+     * východy jsou Set, věci HashMap, stejné u inventáře 
+     */
     private Map<String, Vec> mapaVeciVProstoru;
     private Button tlacitkoVeci;
     private Label vecLabel;
@@ -80,7 +80,10 @@ public class PanelVeciVProstoru extends HBox implements Observer {
             update();
         }
     }
-
+    /**
+     * viz východy
+     * @param novaHra 
+     */
     public void newGame(IHra novaHra) {
         hra.getHerniPlan().removeObserver(this);
 
@@ -95,10 +98,13 @@ public class PanelVeciVProstoru extends HBox implements Observer {
     public void update() {
         this.getChildren().clear();
         mapaVeciVProstoru = hra.getHerniPlan().getAktualniProstor().getVeciVProstoru();
-
+        /**
+         * forEach jako u ostatních objektů 
+         */
         for (String vec : mapaVeciVProstoru.keySet()) {
             /**
              * try-catch pro zablokování milovaného NullPointerException
+             * pokud nejsou v prostoru žádné věci
              */
             try {
                 Vec pomocna = mapaVeciVProstoru.get(vec);
@@ -115,7 +121,9 @@ public class PanelVeciVProstoru extends HBox implements Observer {
                         */
                         String vstupniPrikaz = "seber " + pomocna.getNazev();
                         String odpovedHry = hra.zpracujPrikaz(vstupniPrikaz);
-
+                        /**
+                         * přidání odpovědí hry do centralTextu, jako u Inventáře
+                         */
                         centralText.appendText("\n" + vstupniPrikaz + "\n");
                         centralText.appendText("\n" + odpovedHry + "\n");
 

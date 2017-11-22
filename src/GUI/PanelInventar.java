@@ -11,7 +11,6 @@ import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -20,7 +19,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import logika.HerniPlan;
-import logika.Hra;
 import logika.IHra;
 import logika.Vec;
 import main.Main;
@@ -33,7 +31,6 @@ import utils.Observer;
 public class PanelInventar extends HBox implements Observer {
 
     private HerniPlan plan;
-    ListView<Object> list;
     ObservableList<Object> data;
     private IHra hra;
     private Label InventarLabel;
@@ -44,7 +41,7 @@ public class PanelInventar extends HBox implements Observer {
     /**
      * Konstruktor panelu inventáře
      * @param plan
-     * @param text
+     * @param text - důležité kvůli vracení odpovědí hry
      * @param hra 
      */
     public PanelInventar(HerniPlan plan, TextArea text, IHra hra) {
@@ -63,14 +60,18 @@ public class PanelInventar extends HBox implements Observer {
         getInventarLabel().setPrefWidth(200);
 
         Map<String, Vec> seznam = hra.getInventar().getSeznamVeci();
-
+        /**
+         * forEach vygeneruje Buttony pro každý objekt 
+         */
         for (String vec : seznam.keySet()) {
             Vec pomocna = seznam.get(vec);
             tlacitkoInventare = new Button(pomocna.getNazev(), new ImageView(new Image(
                     Main.class.getResourceAsStream(pomocna.getAdresaObrazkuVeci()), 30, 30, false, false)));
 
             this.getChildren().add(getTlacitkoInventare());
-
+            /**
+             * EventHandler kliknutí, podobný postup jako u panelu věcí v prostoru
+             */
             tlacitkoInventare.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
@@ -144,7 +145,9 @@ public class PanelInventar extends HBox implements Observer {
         return tlacitkoInventare;
     }
     /**
-     * Při nové hře registruje pozorovatele
+     * Při nové hře přeregistruje pozorovatele
+     * @param plan
+     * viz východy
      */
     public void newGame(HerniPlan plan) {
         this.plan = plan;

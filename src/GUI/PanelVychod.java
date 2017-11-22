@@ -6,14 +6,10 @@
 package GUI;
 
 import java.util.Collection;
-import java.util.Iterator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import logika.HerniPlan;
@@ -66,7 +62,11 @@ public class PanelVychod extends ListView implements Observer{
         update();
     }
     
-    
+    /**
+     * opět přeregistrování observerů v případě nové hry pro aktualizaci východů
+     * stejné u inventáře a věcí v prostoru
+     * @param novaHra 
+     */
     
     public void newGame(IHra novaHra) {
         hra.getHerniPlan().removeObserver(this);
