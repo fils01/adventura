@@ -14,6 +14,7 @@ package logika;
  */
 
 public class Hra implements IHra {
+
     private SeznamPrikazu platnePrikazy;    // obsahuje seznam přípustných příkazů
     private HerniPlan herniPlan;
     private Inventar inventar;
@@ -26,7 +27,7 @@ public class Hra implements IHra {
         inventar = new Inventar();
         herniPlan = new HerniPlan();
         platnePrikazy = new SeznamPrikazu();
-        platnePrikazy.vlozPrikaz(new PrikazNapoveda(platnePrikazy));
+        platnePrikazy.vlozPrikaz(new PrikazNapoveda(getPlatnePrikazy()));
         platnePrikazy.vlozPrikaz(new PrikazJdi(herniPlan, inventar));
         platnePrikazy.vlozPrikaz(new PrikazKonec(this));
         platnePrikazy.vlozPrikaz(new PrikazSeber(herniPlan, inventar));
@@ -84,8 +85,8 @@ public class Hra implements IHra {
            	parametry[i]= slova[i+1];  	
         }
         String textKVypsani=" .... ";
-        if (platnePrikazy.jePlatnyPrikaz(slovoPrikazu)) {
-            IPrikaz prikaz = platnePrikazy.vratPrikaz(slovoPrikazu);
+        if (getPlatnePrikazy().jePlatnyPrikaz(slovoPrikazu)) {
+            IPrikaz prikaz = getPlatnePrikazy().vratPrikaz(slovoPrikazu);
             textKVypsani = prikaz.provedPrikaz(parametry) + "********************************************"
             + "***********************";
         }
@@ -112,6 +113,12 @@ public class Hra implements IHra {
         return inventar;
     }
     
+    /**
+     * @return the platnePrikazy
+     */
+    public SeznamPrikazu getPlatnePrikazy() {
+        return platnePrikazy;
+    }
     
      /**
      *  Nastaví, že je konec hry, metodu využívá třída PrikazKonec,

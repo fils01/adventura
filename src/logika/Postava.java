@@ -17,8 +17,11 @@ public class Postava
     private String jmeno;
     private String proslov;
     private boolean nepratelska;
-    /***************************************************************************
-     *
+    /**
+     * Konstruktor postavy
+     * @param jmeno -
+     * @param proslov - 
+     * @param nepratelska  - 
      */
     public Postava(String jmeno, String proslov, boolean nepratelska){
         this.jmeno = jmeno;

@@ -42,6 +42,12 @@ public interface IHra
       * vrací inventář
      * @return obejkt inventář
       */
+     
+     /**
+      * vrátí seznam příkazů
+      */
+     public SeznamPrikazu getPlatnePrikazy();
+     
      public Inventar getInventar();
       /**
      *  Metoda zpracuje řetězec uvedený jako parametr, rozdělí ho na slovo příkazu a další parametry.

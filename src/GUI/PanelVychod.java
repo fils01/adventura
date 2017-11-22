@@ -33,7 +33,7 @@ public class PanelVychod extends ListView implements Observer{
     
     /**
      * Konstruktor Panelu Východů
-     * @param hra 
+     * @param hra -
      */
     public PanelVychod(IHra hra) {
         this.hra = hra;
@@ -65,7 +65,7 @@ public class PanelVychod extends ListView implements Observer{
     /**
      * opět přeregistrování observerů v případě nové hry pro aktualizaci východů
      * stejné u inventáře a věcí v prostoru
-     * @param novaHra 
+     * @param novaHra -
      */
     
     public void newGame(IHra novaHra) {

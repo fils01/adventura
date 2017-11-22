@@ -29,7 +29,7 @@ public class PanelVeciVProstoru extends HBox implements Observer {
 
     private IHra hra;
     /**
-     * východy jsou Set, věci HashMap, stejné u inventáře 
+     * východy jsou Set, věci HashMap, stejné u inventáře, proto raději Map místo Collection
      */
     private Map<String, Vec> mapaVeciVProstoru;
     private Button tlacitkoVeci;
@@ -37,8 +37,8 @@ public class PanelVeciVProstoru extends HBox implements Observer {
     private TextArea centralText;
     /**
      * Konstruktor panelu věcí v prostoru
-     * @param hra
-     * @param text 
+     * @param hra -
+     * @param text -
      */
     public PanelVeciVProstoru(IHra hra, TextArea text) {
         this.hra = hra;
@@ -82,7 +82,7 @@ public class PanelVeciVProstoru extends HBox implements Observer {
     }
     /**
      * viz východy
-     * @param novaHra 
+     * @param novaHra -
      */
     public void newGame(IHra novaHra) {
         hra.getHerniPlan().removeObserver(this);

@@ -40,9 +40,9 @@ public class PanelInventar extends HBox implements Observer {
 
     /**
      * Konstruktor panelu inventáře
-     * @param plan
+     * @param plan -
      * @param text - důležité kvůli vracení odpovědí hry
-     * @param hra 
+     * @param hra -
      */
     public PanelInventar(HerniPlan plan, TextArea text, IHra hra) {
         this.plan = plan;

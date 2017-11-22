@@ -7,30 +7,24 @@ package main;
 
 import GUI.PanelMapa;
 import GUI.MenuLista;
+import GUI.PanelComboBox;
 import GUI.PanelInventar;
 import GUI.PanelVeciVProstoru;
 import GUI.PanelVychod;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import logika.HerniPlan;
 import logika.Hra;
@@ -51,6 +45,7 @@ public class Main extends Application {
     private PanelMapa panelMapa;
     private PanelVeciVProstoru panelVeciVProstoru;
     private PanelInventar panelInventar;
+    private PanelComboBox panelComboBox;
     private MenuLista menuLista;
     
     
@@ -63,6 +58,7 @@ public class Main extends Application {
         
         panelVychod = new PanelVychod(hra);
         panelMapa = new PanelMapa(hra);
+        panelComboBox = new PanelComboBox(hra, zadejPrikazTextField);
         menuLista = new MenuLista(hra, this,stage);
         BorderPane borderPane = new BorderPane();
         
@@ -128,7 +124,8 @@ public class Main extends Application {
         pravaLista.getChildren().addAll(getPanelVychod().getVychodLabel(), 
                 getPanelVychod().getSeznamVychodu(), 
                 getPanelVeciVProstoru().getVecLabel(), getPanelVeciVProstoru(), 
-                getPanelInventar().getInventarLabel(), getPanelInventar());
+                getPanelInventar().getInventarLabel(), getPanelInventar(), 
+                getPanelComboBox().getComboBoxLabel(), getPanelComboBox());
         
         FlowPane levaLista = new FlowPane();
         levaLista.setAlignment(Pos.TOP_CENTER);
@@ -145,8 +142,27 @@ public class Main extends Application {
         primaryStage.setTitle("Adventura");
         primaryStage.setScene(scene);
         primaryStage.show();
+        
+        /**
+         * EventHandler musí být MIMO třídu ComboBoxu, jinak NetBeans zničí vesmír
+         * 
+         */
+        getPanelComboBox().setOnAction(new EventHandler() {
+            @Override
+            public void handle(Event event) {
+                doAction(getPanelComboBox().getValue().toString());
+                /**
+                 * vyšperkováno requestFocusem pro uživatelovo pohodlí
+                 */
+                zadejPrikazTextField.requestFocus();
+            }
+        });
+        
     }
     
+    public void doAction(String pickedItem) {
+        zadejPrikazTextField.setText(pickedItem);
+    }
     public void appendCentralText(String vstupniPrikaz) {
         this.getCentralText().appendText("\n" + vstupniPrikaz + "\n");
     }
@@ -210,6 +226,13 @@ public class Main extends Application {
      */
     public PanelInventar getPanelInventar() {
         return panelInventar;
+    }
+
+    /**
+     * @return the panelComboBox
+     */
+    public PanelComboBox getPanelComboBox() {
+        return panelComboBox;
     }
     
 }
