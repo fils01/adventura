@@ -21,6 +21,7 @@ import logika.HerniPlan;
 import logika.Hra;
 import logika.IHra;
 import logika.Vec;
+import main.Main;
 import utils.Observer;
 
 /**
@@ -40,18 +41,18 @@ public class PanelInventar implements Observer{
     private TextArea centralText;
 
     /*
-    * Konstruktor pro panel kapsy.
+    * Konstruktor pro panel inventáře.
     */
-    public PanelInventar(HerniPlan plan,TextArea text, IHra hra) {
+    public PanelInventar(HerniPlan plan, TextArea text, IHra hra) {
        this.plan = plan;
        plan.registerObserver(this);
        centralText = text;
        this.hra = hra;
-        init();
+       init();
     }
 
     /*
-    * Metoda vytvoří list pro věci v kapse.
+    * Vytvoří list pro seznam věcí v inventáři.
     */
     private void init() {
         list = new ListView<>();
@@ -101,14 +102,14 @@ public class PanelInventar implements Observer{
     }
     
     /*
-    * Metoda vrací list.
+    * Vrací ListView inventáře.
     */
     public ListView<Object> getList() {
         return list;
     }
     
     /*
-    * Metoda aktualizuje list věcí v kapse. Zobrazuje obrázky věcí, které má hráč u sebe.
+    * Aktualizuje list věcí v kapse. Zobrazuje obrázky věcí, které má hráč u sebe.
     */
     @Override 
     public void update() 
@@ -118,15 +119,14 @@ public class PanelInventar implements Observer{
         data.clear();
         for (String x : seznam.keySet()) 
         {
-        Vec pomocna = seznam.get(x);
+            Vec pomocna = seznam.get(x);
         ImageView obrazek = new ImageView(new Image(main.Main.class.getResourceAsStream(pomocna.getAdresaObrazkuVeci()), 100, 100, false, false));
         data.add(obrazek);
         }
     }
     
     /**
-     * Metoda zaregistruje pozorovatele k hernímu plánu při spuštění nové hry.
-     * @param plan
+     * Při nové hře registruje pozorovatele
      */
     public void nastaveniHernihoPlanu (HerniPlan plan){
         this.plan = plan;
