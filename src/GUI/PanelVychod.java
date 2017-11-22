@@ -35,7 +35,10 @@ public class PanelVychod extends ListView implements Observer{
     ObservableList<String> mistnosti;
     private Label vychodLabel;
     
-    
+    /**
+     * Konstruktor Panelu Východů
+     * @param hra 
+     */
     public PanelVychod(IHra hra) {
         this.hra = hra;
         hra.getHerniPlan().registerObserver(this);
@@ -53,13 +56,13 @@ public class PanelVychod extends ListView implements Observer{
         vychodLabel = new Label("Východy:");
         getVychodLabel().setFont(Font.font("Avenir Next", FontWeight.BOLD, 16));
         getVychodLabel().setPrefWidth(200);
-        
+        /**
+         * forEach vygeneruje východy 
+         */
         for (Prostor prostor : sousedniMistnosti) {
             mistnosti.add(prostor.getNazev());
             
         }
-        
-        //ListCell vybere jméno prostoru a přesune se do něj
         update();
     }
     

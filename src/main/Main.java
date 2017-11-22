@@ -116,8 +116,11 @@ public class Main extends Application {
         dolniLista.setAlignment(Pos.CENTER);
         dolniLista.getChildren().addAll(zadejPrikazLabel,zadejPrikazTextField);
         
-        
+        /**
+         * new PanelInventar musí být za centralTextem, jinak zlobí
+         */
         panelInventar = new PanelInventar(hra.getHerniPlan(),centralText,hra);
+        
         
         FlowPane pravaLista = new FlowPane();
         pravaLista.setAlignment(Pos.TOP_CENTER);
@@ -125,7 +128,7 @@ public class Main extends Application {
         pravaLista.getChildren().addAll(getPanelVychod().getVychodLabel(), 
                 getPanelVychod().getSeznamVychodu(), 
                 getPanelVeciVProstoru().getVecLabel(), getPanelVeciVProstoru(), 
-                getPanelInventar().getInventarLabel(),getPanelInventar().getList());
+                getPanelInventar().getInventarLabel(), getPanelInventar());
         
         FlowPane levaLista = new FlowPane();
         levaLista.setAlignment(Pos.TOP_CENTER);

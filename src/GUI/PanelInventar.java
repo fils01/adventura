@@ -9,12 +9,14 @@ import java.util.Map;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import logika.HerniPlan;
@@ -28,114 +30,125 @@ import utils.Observer;
  *
  * @author sf
  */
+public class PanelInventar extends HBox implements Observer {
 
-public class PanelInventar implements Observer{
-    
     private HerniPlan plan;
     ListView<Object> list;
     ObservableList<Object> data;
     private IHra hra;
     private Label InventarLabel;
+    private Button tlacitkoInventare;
 
-    
     private TextArea centralText;
 
-    /*
-    * Konstruktor pro panel inventáře.
-    */
+    /**
+     * Konstruktor panelu inventáře
+     * @param plan
+     * @param text
+     * @param hra 
+     */
     public PanelInventar(HerniPlan plan, TextArea text, IHra hra) {
-       this.plan = plan;
-       plan.registerObserver(this);
-       centralText = text;
-       this.hra = hra;
-       init();
+        this.plan = plan;
+        plan.registerObserver(this);
+        centralText = text;
+        this.hra = hra;
+        init();
     }
-
-    /*
-    * Vytvoří list pro seznam věcí v inventáři.
-    */
+    
     private void init() {
-        list = new ListView<>();
         data = FXCollections.observableArrayList();
-        list.setItems(data);
-        list.setPrefWidth(200);
-        
-        InventarLabel = new Label("Inventář:");
-        InventarLabel.setFont(Font.font("Avenir Next", FontWeight.BOLD, 16));
-        InventarLabel.setPrefWidth(200);
-        
-        list.setOnMouseClicked(new EventHandler<MouseEvent>() 
-        {
-            @Override
-            public void handle(MouseEvent click)
-            {
-                    int index = list.getSelectionModel().getSelectedIndex();
-                    
-                    Map<String, Vec> seznam;
-                    seznam = hra.getInventar().getSeznamVeci();
-                    
-                    String nazev = "";
-                    int pomocna = 0;
-                    for (String x : seznam.keySet()) 
-                    {
-                       if(pomocna == index)
-                       {
-                           nazev = x;
-                       }
-                       pomocna++;
-                    }
-                    
-                    String vstupniPrikaz = "zahoď "+nazev;
-                    String odpovedHry = hra.zpracujPrikaz("zahoď "+nazev);
 
-                
+        setInventarLabel(new Label("Inventář:"));
+        getInventarLabel().setFont(Font.font("Avenir Next", FontWeight.BOLD, 16));
+        getInventarLabel().setPrefWidth(200);
+
+        Map<String, Vec> seznam = hra.getInventar().getSeznamVeci();
+
+        for (String vec : seznam.keySet()) {
+            Vec pomocna = seznam.get(vec);
+            tlacitkoInventare = new Button(pomocna.getNazev(), new ImageView(new Image(
+                    Main.class.getResourceAsStream(pomocna.getAdresaObrazkuVeci()), 30, 30, false, false)));
+
+            this.getChildren().add(getTlacitkoInventare());
+
+            tlacitkoInventare.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    /**
+                     * Pozor na záměnu pomocna.getNazev() a tlacitkoInventare.getText()!!
+                     * EventHandler pak zahodí špatný item
+                     */
+                    String vstupniPrikaz = "zahoď " + pomocna.getNazev();
+                    String odpovedHry = hra.zpracujPrikaz(vstupniPrikaz);
+
                     centralText.appendText("\n" + vstupniPrikaz + "\n");
                     centralText.appendText("\n" + odpovedHry + "\n");
-               
+
                     plan.notifyObservers();
-            }
-        });
-        
-        
-        
-        update();
+                }
+            });
+
+            update();
+        }
     }
-    
+
     /*
-    * Vrací ListView inventáře.
-    */
-    public ListView<Object> getList() {
-        return list;
-    }
-    
-    /*
-    * Aktualizuje list věcí v kapse. Zobrazuje obrázky věcí, které má hráč u sebe.
-    */
-    @Override 
-    public void update() 
-    {        
+    * Aktualizuje inventář pomocí Buttonů s obrázky a popiskem
+     */
+    @Override
+    public void update() {
+        this.getChildren().clear();
         Map<String, Vec> seznam;
         seznam = hra.getInventar().getSeznamVeci();
         data.clear();
-        for (String x : seznam.keySet()) 
-        {
-            Vec pomocna = seznam.get(x);
-        ImageView obrazek = new ImageView(new Image(main.Main.class.getResourceAsStream(pomocna.getAdresaObrazkuVeci()), 100, 100, false, false));
-        data.add(obrazek);
+        for (String vec : seznam.keySet()) {
+            Vec pomocna = seznam.get(vec);
+            tlacitkoInventare = new Button(pomocna.getNazev(), new ImageView(new Image(
+                    Main.class.getResourceAsStream(pomocna.getAdresaObrazkuVeci()), 30, 30, false, false)));
+
+            this.getChildren().addAll(getTlacitkoInventare());
+
+            tlacitkoInventare.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    String vstupniPrikaz = "zahoď " + pomocna.getNazev();
+                    String odpovedHry = hra.zpracujPrikaz(vstupniPrikaz);
+
+                    centralText.appendText("\n" + vstupniPrikaz + "\n");
+                    centralText.appendText("\n" + odpovedHry + "\n");
+
+                    plan.notifyObservers();
+                }
+            });
         }
     }
-    
-    /**
-     * Při nové hře registruje pozorovatele
-     */
-    public void nastaveniHernihoPlanu (HerniPlan plan){
-        this.plan = plan;
-        plan.registerObserver(this);
-        this.update();
-    }
 
+    /**
+     * @return the InventarLabel
+     */
     public Label getInventarLabel() {
         return InventarLabel;
     }
 
+    /**
+     * @param InventarLabel the InventarLabel to set
+     */
+    public void setInventarLabel(Label InventarLabel) {
+        this.InventarLabel = InventarLabel;
+    }
+
+    /**
+     * @return the tlacitkoInventare
+     */
+    public Button getTlacitkoInventare() {
+        return tlacitkoInventare;
+    }
+    /**
+     * Při nové hře registruje pozorovatele
+     */
+    public void newGame(HerniPlan plan) {
+        this.plan = plan;
+        plan.registerObserver(this);
+        this.update();
+    }
 }
