@@ -29,6 +29,7 @@ import javafx.stage.Stage;
 import logika.HerniPlan;
 import logika.Hra;
 import logika.IHra;
+import uiText.TextoveRozhrani;
 
 /**
  *
@@ -170,7 +171,15 @@ public class Main extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        launch(args);
+        if (args.length == 0) {
+            launch(args);
+        } else if (args[0].equals("-text")) {
+            IHra hra = new Hra();
+            TextoveRozhrani ui = new TextoveRozhrani(hra);
+            ui.hraj();
+        } else {
+            System.out.println("Neplatny parametr");
+        }
     }
     /**
      * @return the centralText
