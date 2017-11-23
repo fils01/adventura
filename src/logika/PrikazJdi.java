@@ -72,7 +72,7 @@ class PrikazJdi implements IPrikaz {
             plan.setProhra(true);
         }
         if(aktualniProstor.getNazev().equals("věž") && smer.equals("komnata_princezny") 
-        && !inventar.obsahujeVec("klíč")){
+        && !inventar.obsahujeVec("klíč") && !aktualniProstor.jePostavaVProstoru("Vezír")){
             return "Dveře jsou zamčeny";
         }
         if(aktualniProstor.getNazev().equals("věž") && smer.equals("komnata_princezny")
