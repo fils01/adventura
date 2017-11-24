@@ -23,7 +23,11 @@ public class PanelComboBox extends ComboBox {
     private Label comboBoxLabel;
     private String textSPrikazy; //neumím pojmenovat proměnné 
     private String[] oddelenePrikazy;
-    
+    /**
+     * Konstruktor panelu ComboBox
+     * @param hra
+     * @param text 
+     */
     public PanelComboBox(IHra hra, TextField text) {
         zadejPrikazTextField = text;
         this.hra = hra;
@@ -44,7 +48,9 @@ public class PanelComboBox extends ComboBox {
          */
         textSPrikazy = hra.getPlatnePrikazy().vratNazvyPrikazu();
         /**
-         * zmíněný split regexem
+         * zmíněný split regexem podle mezer, je potřeba použít pole, protože
+         * metoda vratNazvyPrikazu nevrací Set/Kolekci, ale textový řetězec, 
+         * modifikace ve třídě hry by byla mnohem kostrbatější, než aktuální řešení
          */
         oddelenePrikazy = textSPrikazy.split(" ");
         for (String prikaz : oddelenePrikazy) {

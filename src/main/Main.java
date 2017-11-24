@@ -107,7 +107,9 @@ public class Main extends Application {
                 appendCentralText(odpovedNaVytvorenyPrikaz);
             }
         });
-        
+        /**
+         * inicializace všech lišt po stranách Stage
+         */
         
         FlowPane dolniLista = new FlowPane();
         dolniLista.setAlignment(Pos.CENTER);
@@ -164,6 +166,10 @@ public class Main extends Application {
     public void doAction(String pickedItem) {
         zadejPrikazTextField.setText(pickedItem);
     }
+    /**
+     * připojuje vstupniPrikaz k centralTextu, konkrétně vypíše název příkazu a odpověď hry
+     * @param vstupniPrikaz 
+     */
     public void appendCentralText(String vstupniPrikaz) {
         this.getCentralText().appendText("\n" + vstupniPrikaz + "\n");
     }

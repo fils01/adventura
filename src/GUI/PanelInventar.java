@@ -40,6 +40,7 @@ public class PanelInventar extends HBox implements Observer {
 
     /**
      * Konstruktor panelu inventáře
+     * pozor na parametry,netbeans opět rád ničí vesmír při nesprávných
      * @param plan -
      * @param text - důležité kvůli vracení odpovědí hry
      * @param hra -
@@ -58,7 +59,9 @@ public class PanelInventar extends HBox implements Observer {
         setInventarLabel(new Label("Inventář:"));
         getInventarLabel().setFont(Font.font("Avenir Next", FontWeight.BOLD, 16));
         getInventarLabel().setPrefWidth(200);
-
+        /**
+         * Map jako u ostatních panelů
+         */
         Map<String, Vec> seznam = hra.getInventar().getSeznamVeci();
         /**
          * forEach vygeneruje Buttony pro každý objekt 
