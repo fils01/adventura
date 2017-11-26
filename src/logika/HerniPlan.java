@@ -59,7 +59,7 @@ public class HerniPlan implements Subject{
         Prostor tretiZkouska = new Prostor("třetí_zkouška","bráněna pěšákem, který vypadá velmi nepřátelsky", 150, 185);
         Prostor tajnaSkrys = new Prostor("tajná_skrýš","tajná místnost, která byla používána jako úkryt", 110, 185);
         Prostor most = new Prostor("most", "rozpadlý most přes propast. To jen tak nepřeskočíš", 140, 150);
-        Prostor vez = new Prostor("věž", "první poschodí věže, kde je uvězněná princezna, bohužel ti "
+        Prostor vez = new Prostor("věž", "první poschodí věže, kde je uvězněná princezna, \n bohužel ti "
         + "v cestě dál brání zlý Vezír!", 75, 75);
         Prostor komnataPrincezny = new Prostor("komnata_princezny", "cela na vrcholu věže, kde je zamčená" 
         + " princezna", 75, 20);
