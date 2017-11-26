@@ -2,6 +2,9 @@
  * Kontrola kódování: Příliš žluťoučký kůň úpěl ďábelské ódy. */
 package logika;
 
+import GUI.PanelVeciVProstoru;
+import main.Main;
+
 
 
 
@@ -50,6 +53,7 @@ public class PrikazBojuj implements IPrikaz
                 if(aktualniProstor.getNazev().equals("věž") && inventar.obsahujeVec("velký_meč")){
                     Vec klic = new Vec("klíč", true, "Klíč do cely princezny", "/zdroje/klic.png");
                     aktualniProstor.vlozVec(klic);
+                    plan.notifyObservers();
                     return "\nZabil jsi Vezíra! Po jeho útoku dýkami jsi kontroval přesnou ranou do srdce."
                     + "\nZ Vezíra také vypadl klíč, který odemyká celu princezny.\n";
                 }

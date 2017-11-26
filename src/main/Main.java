@@ -184,7 +184,7 @@ public class Main extends Application {
             TextoveRozhrani ui = new TextoveRozhrani(hra);
             ui.hraj();
         } else {
-            System.out.println("Neplatny parametr");
+            System.out.println("Chybný parametr");
         }
     }
     /**
