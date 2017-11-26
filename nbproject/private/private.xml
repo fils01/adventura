@@ -3,9 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/sf/Downloads/adventura-nejhlavnejsi/src/GUI/PanelComboBox.java</file>
-            <file>file:/Users/sf/Downloads/adventura-nejhlavnejsi/src/zdroje/index.html</file>
-            <file>file:/Users/sf/Downloads/adventura-nejhlavnejsi/src/GUI/PanelInventar.java</file>
+            <file>file:/Users/sf/Downloads/adventura-nejhlavnejsi/src/GUI/PanelVeciVProstoru.java</file>
+            <file>file:/Users/sf/Downloads/adventura-nejhlavnejsi/src/logika/PrikazBojuj.java</file>
+            <file>file:/Users/sf/Downloads/adventura-nejhlavnejsi/src/logika/HerniPlan.java</file>
+            <file>file:/Users/sf/Downloads/adventura-nejhlavnejsi/src/main/Main.java</file>
+            <file>file:/Users/sf/Downloads/adventura-nejhlavnejsi/src/logika/Hra.java</file>
         </group>
     </open-files>
 </project-private>
